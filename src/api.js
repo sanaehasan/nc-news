@@ -27,5 +27,14 @@ const getTopics = () => {
     return data;
   });
 };
-
-export { getArticles, getTopics };
+const getArticleById = (id) => {
+  return api.get(`/articles/${id}`).then(({ data }) => {
+    return data;
+  });
+};
+const getArticleCommentsById = (id) => {
+  return api.get(`/articles/${id}/comments`).then(({ data }) => {
+    return data;
+  });
+};
+export { getArticles, getTopics, getArticleCommentsById, getArticleById };
