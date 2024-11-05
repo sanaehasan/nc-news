@@ -6,14 +6,26 @@ const api = axios.create({
 
 const getArticles = (sort_by, order, topic) => {
   return api
-    .get("/articles")
+    .get("/articles", {
+      params: {
+        sort_by: sort_by,
+        order: order,
+        topic: topic,
+      },
+    })
     .then(({ data }) => {
       return data;
     })
     .catch((error) => {
       // handle error
-      console.error(error);
+      return error;
     });
 };
 
-export { getArticles };
+const getTopics = () => {
+  return api.get("/topics").then(({ data }) => {
+    return data;
+  });
+};
+
+export { getArticles, getTopics };
