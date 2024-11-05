@@ -19,6 +19,7 @@ export default function Articles(){
             setSingleTopic("");
         }
     },[topic])
+    
     useEffect(()=>{
         
         getArticles(sortBy,order,singleTopic)
@@ -27,12 +28,15 @@ export default function Articles(){
             setArticles(data.articles);
         });
     },[singleTopic])
+
   function handleSelect(event){
    setSortBy(event.target.value);
   }
+  
   function handleOrder(event){
     setOrder(event.target.value);
   }
+
   function handleClick(event){
     event.preventDefault()
     getArticles(sortBy,order,singleTopic)
