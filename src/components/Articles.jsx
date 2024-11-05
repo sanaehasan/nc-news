@@ -1,7 +1,7 @@
 import {getArticles} from "../api.js";
 import { useEffect,useState} from "react";
 import ArticleCard from "./ArticleCard.jsx";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 export default function Articles(){
 
     const [articles,setArticles]= useState([]);
@@ -32,7 +32,7 @@ export default function Articles(){
   function handleSelect(event){
    setSortBy(event.target.value);
   }
-  
+
   function handleOrder(event){
     setOrder(event.target.value);
   }
@@ -64,7 +64,7 @@ export default function Articles(){
         <button onClick={handleClick}>filter</button>
     </form>
     {articles.map((item)=>{
-        return <div key={item.article_id} className="card-container"><ArticleCard article={item}/></div>
+        return <Link key={item.article_id} to={`/article/${item.article_id}`}><div  className="card-container"><ArticleCard article={item}/></div></Link>
     })}
     </>
 }
