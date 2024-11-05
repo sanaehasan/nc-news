@@ -37,4 +37,17 @@ const getArticleCommentsById = (id) => {
     return data;
   });
 };
-export { getArticles, getTopics, getArticleCommentsById, getArticleById };
+const UpdateArticleVotes = (article_id) => {
+  return api
+    .patch(`/articles/${article_id}`, { inc_votes: 1 })
+    .then(({ data }) => {
+      return data;
+    });
+};
+export {
+  getArticles,
+  getTopics,
+  getArticleCommentsById,
+  getArticleById,
+  UpdateArticleVotes,
+};
