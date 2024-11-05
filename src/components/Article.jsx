@@ -15,14 +15,14 @@ export default function Article(props){
             setComments(data.comments)
         });
     },[])
-    return <article>
+    return <>
+            <article>
             <h2>{article.topic}</h2>
             <h3>{article.title}</h3>
             <h5>author : {article.author}</h5>
             <img src={article.article_img_url}/>
             <p>{article.body}</p>
             <p><span>{article.votes} likes</span>  <span>{article.comments_count} comments</span></p>
-            
-
             </article>
+            </>
 }
