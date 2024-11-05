@@ -15,6 +15,8 @@ export default function Articles(){
         if(topic){
            
             setSingleTopic(topic);
+        }else{
+            setSingleTopic("");
         }
     },[topic])
     useEffect(()=>{

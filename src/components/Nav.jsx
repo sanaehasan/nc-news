@@ -11,16 +11,16 @@ export default function Nav(){
         })
     },[])
    
-    return (<nav><Link to="/">Home</Link>
-   <div className="dropdown"> <Link  className="dropbtn" to='/articles' >
-Articles</Link>
+return (
+   <nav><Link to="/">Home</Link>
+   <div className="dropdown"> 
+    <Link  className="dropbtn" to='/articles' >Articles</Link>
   <div className="dropdown-content">
   {topics.map((topic)=>{
     return   <Link to={`/articles/${topic.slug}`} key={topic.slug} >{topic.slug}</Link>
   })}
-  
-   
     </div>
-</div>
- </nav>)
+    </div>
+    </nav>
+ )
 }
