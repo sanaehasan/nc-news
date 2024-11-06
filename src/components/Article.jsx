@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom"
-import { addComment, getArticleById, getArticleCommentsById, UpdateArticleVotes } from "../api";
+import { addComment, deleteComment, getArticleById, getArticleCommentsById, UpdateArticleVotes } from "../api";
 import CommentCard from "./CommentCard";
 import UserContext from "../userContext";
 
@@ -8,9 +8,11 @@ export default function Article(){
    const {id} = useParams();
    const [article, setArticle]=useState({});
    const [comments,setComments]=useState([]);
-   const [votes,SetVotes]= useState(0);
+   const [votes,setVotes]= useState(0);
    const [addCommentText,setAddCommentText]=useState("hidden");
    const[commentText,setCommentText]=useState("");
+
+ 
    const context = useContext(UserContext);
    const {user} =context;
 
@@ -18,7 +20,7 @@ export default function Article(){
     useEffect(()=>{
         getArticleById(id).then((data)=>{
             setArticle(data.article)
-            SetVotes(data.article.votes);
+            setVotes(data.article.votes);
         });
         getArticleCommentsById(id).then((data)=>{
             setComments(data.comments)
@@ -29,7 +31,7 @@ export default function Article(){
     const handleLike=(event)=>{
         event.preventDefault();
         UpdateArticleVotes(article.article_id,1).then((data)=>{
-            SetVotes((votes)=>{
+            setVotes((votes)=>{
                  const currentVotes = votes;
                  return currentVotes+1;
             });
@@ -40,7 +42,7 @@ export default function Article(){
     const handleDisLike=(event)=>{
         event.preventDefault();
         UpdateArticleVotes(article.article_id,-1).then((data)=>{
-            SetVotes((votes)=>{
+            setVotes((votes)=>{
                  const currentVotes = votes;
                  return currentVotes-1;
             });
@@ -60,6 +62,7 @@ export default function Article(){
         if (user){
             addComment(commentText,user,article.article_id).then((data)=>{
                 setComments((comments)=>{
+                    console.log(data.comment);
                     const newcomments = [data.comment,...comments]
                     return newcomments;
                 })
@@ -72,9 +75,19 @@ export default function Article(){
             setCommentText("");
             setAddCommentText("hidden");
         }
+
+       
        
     }
-
+     const handleCommentDelete = (event)=>{
+                deleteComment(event.target.value).then(()=>{
+                getArticleCommentsById(id).then((data)=>{
+                setComments(data.comments)
+                 });
+                });
+                 
+               
+        }
 
     return <>
             <article>
@@ -105,7 +118,10 @@ export default function Article(){
             </div>
             <div>
                 {comments.map((comment)=>{
-                    return <div key={comment.comment_id} className="commentdiv"><CommentCard comment={comment}/></div> 
+                    return <div key={comment.comment_id} className="commentdiv">
+                             <CommentCard comment={comment}/>
+                             {(user===comment.author)?<button value={comment.comment_id} onClick={handleCommentDelete}>delete</button>:null}
+                            </div> 
                 })}
             </div>
             </>
