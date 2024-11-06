@@ -1,21 +1,43 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { getArticleById, getArticleCommentsById } from "../api";
+import { getArticleById, getArticleCommentsById, UpdateArticleVotes } from "../api";
 import CommentCard from "./CommentCard";
 
-export default function Article(props){
+export default function Article(){
     const {id} = useParams();
    const [article, setArticle]=useState({});
    const [comments,setComments]=useState([]);
+   const [votes,SetVotes]= useState(0);
     useEffect(()=>{
         getArticleById(id).then((data)=>{
             setArticle(data.article)
-            console.log(data)
+            SetVotes(data.article.votes);
         });
         getArticleCommentsById(id).then((data)=>{
             setComments(data.comments)
+
         });
     },[])
+
+    const handleLike=(event)=>{
+        event.preventDefault();
+        UpdateArticleVotes(article.article_id,1).then((data)=>{
+            SetVotes((votes)=>{
+                 const currentVotes = votes;
+                 return currentVotes+1;
+            });
+        });
+
+    }
+    const handleDisLike=(event)=>{
+        event.preventDefault();
+        UpdateArticleVotes(article.article_id,-1).then((data)=>{
+            SetVotes((votes)=>{
+                 const currentVotes = votes;
+                 return currentVotes-1;
+            });
+        });
+    }
     return <>
             <article>
             <h2>{article.topic}</h2>
@@ -23,7 +45,18 @@ export default function Article(props){
             <h5>author : {article.author}</h5>
             <img src={article.article_img_url} className="article-img"/>
             <p>{article.body}</p>
-            <p><span>{article.votes} likes</span>  <span>{article.comments_count} comments</span></p>
+            <p>Ceated at : {article.created_at}</p>
+            <p>
+            <button className="like-button" onClick={handleLike}>
+            <span className="like-text">{votes}</span> 
+            <img className="like-image"src="https://img.icons8.com/?size=48&id=85638&format=png"/>
+            </button> 
+            <button className="like-button" onClick={handleDisLike}>
+            <span className="like-text"></span> 
+            <img className="like-image"src="https://img.icons8.com/?size=48&id=87726&format=png"/>
+            </button> 
+             <span>{article.comments_count} comments</span>
+            </p>
             </article>
             <div>
                 {comments.map((comment)=>{

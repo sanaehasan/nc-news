@@ -92,3 +92,20 @@ nav > a {
   margin: 5px 0 0 5px;
   padding: 10px;;
 }
+.like-image{
+  height: 17px;
+  width: 17px;
+  margin: 0;
+  padding-top: 5px;
+  padding-left: 5px;
+
+}
+
+.like-button{
+  margin-right: 5px;
+}
+.like-text{
+  font-size: 17px;
+ 
+
+}
