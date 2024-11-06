@@ -1,13 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { getArticleById, getArticleCommentsById, UpdateArticleVotes } from "../api";
+import { addComment, getArticleById, getArticleCommentsById, UpdateArticleVotes } from "../api";
 import CommentCard from "./CommentCard";
+import UserContext from "../userContext";
 
 export default function Article(){
-    const {id} = useParams();
+   const {id} = useParams();
    const [article, setArticle]=useState({});
    const [comments,setComments]=useState([]);
    const [votes,SetVotes]= useState(0);
+   const [addCommentText,setAddCommentText]=useState("hidden");
+   const[commentText,setCommentText]=useState("");
+   const context = useContext(UserContext);
+   const {user} =context;
+
+
     useEffect(()=>{
         getArticleById(id).then((data)=>{
             setArticle(data.article)
@@ -29,6 +36,7 @@ export default function Article(){
         });
 
     }
+
     const handleDisLike=(event)=>{
         event.preventDefault();
         UpdateArticleVotes(article.article_id,-1).then((data)=>{
@@ -38,6 +46,36 @@ export default function Article(){
             });
         });
     }
+
+    const handleAddComment = ()=>{
+        setAddCommentText("visible")
+    }
+
+    const handleCommentChange= (event)=>{
+            setCommentText(event.target.value);
+    }
+
+    const handlePostComment= (event)=>{
+        event.preventDefault();
+        if (user){
+            addComment(commentText,user,article.article_id).then((data)=>{
+                setComments((comments)=>{
+                    const newcomments = [data.comment,...comments]
+                    return newcomments;
+                })
+                setCommentText("");
+                setAddCommentText("hidden"); 
+            });
+          
+        }else{
+            alert("You need to log in to be able to post a comment")
+            setCommentText("");
+            setAddCommentText("hidden");
+        }
+       
+    }
+
+
     return <>
             <article>
             <h2>{article.topic}</h2>
@@ -58,6 +96,13 @@ export default function Article(){
              <span>{article.comments_count} comments</span>
             </p>
             </article>
+            <button onClick={handleAddComment}>Add comment...</button>
+            <div className={addCommentText}>
+                <form>
+                    <textarea onChange={handleCommentChange}placeholder="write your comment here please" value={commentText}/>
+                    <button onClick={handlePostComment}>post</button>
+                </form>
+            </div>
             <div>
                 {comments.map((comment)=>{
                     return <div key={comment.comment_id} className="commentdiv"><CommentCard comment={comment}/></div> 

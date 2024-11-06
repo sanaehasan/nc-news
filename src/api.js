@@ -49,6 +49,17 @@ const getUsers = () => {
     return data;
   });
 };
+
+const addComment = (commentText, username, article_id) => {
+  return api
+    .post(`/articles/${article_id}/comments`, {
+      username: username,
+      body: { body: commentText },
+    })
+    .then(({ data }) => {
+      return data;
+    });
+};
 export {
   getArticles,
   getTopics,
@@ -56,4 +67,5 @@ export {
   getArticleById,
   UpdateArticleVotes,
   getUsers,
+  addComment,
 };
