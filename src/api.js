@@ -60,6 +60,11 @@ const addComment = (commentText, username, article_id) => {
       return data;
     });
 };
+const deleteComment = (comment_id) => {
+  return api.delete(`/comments/${comment_id}`).then((data) => {
+    return "deleted";
+  });
+};
 export {
   getArticles,
   getTopics,
@@ -68,4 +73,5 @@ export {
   UpdateArticleVotes,
   getUsers,
   addComment,
+  deleteComment,
 };
