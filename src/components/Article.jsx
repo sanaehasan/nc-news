@@ -21,13 +21,22 @@ export default function Article(){
 
     const handleLike=(event)=>{
         event.preventDefault();
-        UpdateArticleVotes(article.article_id).then((data)=>{
+        UpdateArticleVotes(article.article_id,1).then((data)=>{
             SetVotes((votes)=>{
                  const currentVotes = votes;
                  return currentVotes+1;
             });
         });
 
+    }
+    const handleDisLike=(event)=>{
+        event.preventDefault();
+        UpdateArticleVotes(article.article_id,-1).then((data)=>{
+            SetVotes((votes)=>{
+                 const currentVotes = votes;
+                 return currentVotes-1;
+            });
+        });
     }
     return <>
             <article>
@@ -36,12 +45,17 @@ export default function Article(){
             <h5>author : {article.author}</h5>
             <img src={article.article_img_url} className="article-img"/>
             <p>{article.body}</p>
+            <p>Ceated at : {article.created_at}</p>
             <p>
             <button className="like-button" onClick={handleLike}>
-            <span className="like-text">like</span> 
+            <span className="like-text">{votes}</span> 
             <img className="like-image"src="https://img.icons8.com/?size=48&id=85638&format=png"/>
             </button> 
-            <span>{votes} likes</span>  <span>{article.comments_count} comments</span>
+            <button className="like-button" onClick={handleDisLike}>
+            <span className="like-text"></span> 
+            <img className="like-image"src="https://img.icons8.com/?size=48&id=87726&format=png"/>
+            </button> 
+             <span>{article.comments_count} comments</span>
             </p>
             </article>
             <div>

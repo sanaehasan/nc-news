@@ -37,9 +37,9 @@ const getArticleCommentsById = (id) => {
     return data;
   });
 };
-const UpdateArticleVotes = (article_id) => {
+const UpdateArticleVotes = (article_id, vote) => {
   return api
-    .patch(`/articles/${article_id}`, { inc_votes: 1 })
+    .patch(`/articles/${article_id}`, { inc_votes: vote })
     .then(({ data }) => {
       return data;
     });
