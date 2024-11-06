@@ -44,10 +44,16 @@ const UpdateArticleVotes = (article_id, vote) => {
       return data;
     });
 };
+const getUsers = () => {
+  return api.get("/users").then(({ data }) => {
+    return data;
+  });
+};
 export {
   getArticles,
   getTopics,
   getArticleCommentsById,
   getArticleById,
   UpdateArticleVotes,
+  getUsers,
 };
