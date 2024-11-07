@@ -23,31 +23,59 @@ const getArticles = (sort_by, order, topic) => {
 };
 
 const getTopics = () => {
-  return api.get("/topics").then(({ data }) => {
-    return data;
-  });
+  return api
+    .get("/topics")
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((error) => {
+      // handle error
+      return error;
+    });
 };
 const getArticleById = (id) => {
-  return api.get(`/articles/${id}`).then(({ data }) => {
-    return data;
-  });
+  return api
+    .get(`/articles/${id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((error) => {
+      // handle error
+      return error;
+    });
 };
 const getArticleCommentsById = (id) => {
-  return api.get(`/articles/${id}/comments`).then(({ data }) => {
-    return data;
-  });
+  return api
+    .get(`/articles/${id}/comments`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((error) => {
+      // handle error
+      return error;
+    });
 };
 const UpdateArticleVotes = (article_id, vote) => {
   return api
     .patch(`/articles/${article_id}`, { inc_votes: vote })
     .then(({ data }) => {
       return data;
+    })
+    .catch((error) => {
+      // handle error
+      return error;
     });
 };
 const getUsers = () => {
-  return api.get("/users").then(({ data }) => {
-    return data;
-  });
+  return api
+    .get("/users")
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((error) => {
+      // handle error
+      return error;
+    });
 };
 
 const addComment = (commentText, username, article_id) => {
@@ -58,12 +86,22 @@ const addComment = (commentText, username, article_id) => {
     })
     .then(({ data }) => {
       return data;
+    })
+    .catch((error) => {
+      // handle error
+      return error;
     });
 };
 const deleteComment = (comment_id) => {
-  return api.delete(`/comments/${comment_id}`).then((data) => {
-    return "deleted";
-  });
+  return api
+    .delete(`/comments/${comment_id}`)
+    .then((data) => {
+      return "deleted";
+    })
+    .catch((error) => {
+      // handle error
+      return error;
+    });
 };
 export {
   getArticles,
