@@ -7,7 +7,7 @@ export default function Articles(){
     const [articles,setArticles]= useState([]);
     const [sortBy , setSortBy]=useState("created_at");
     const [order,setOrder]=useState("DESC");
-  
+    const [loading,setLoading] = useState(true);
     const [singleTopic,setSingleTopic]= useState("");
     const {topic} =useParams()
    
@@ -20,9 +20,10 @@ export default function Articles(){
     },[topic])
     
     useEffect(()=>{
-        
+        setLoading(true);
         getArticles(sortBy,order,singleTopic)
         .then((data)=>{
+            setLoading(false);
             setArticles(data.articles);
         }).catch((err)=>{
             alert("It has an erro loading the articles please try later");
@@ -39,15 +40,17 @@ export default function Articles(){
 
   function handleClick(event){
     event.preventDefault()
+    setLoading(true);
     getArticles(sortBy,order,singleTopic)
     .then((data)=>{
+         setLoading(false);
         setArticles(data.articles);
     }).catch((err)=>{
             alert("It has an error loading the articles please try later");
         });
    }
   
-
+   if(!loading){
     return <>
     <form>
         <label htmlFor="sortbySelect">Filter By</label>
@@ -69,4 +72,7 @@ export default function Articles(){
         return <Link key={item.article_id} to={`/article/${item.article_id}`}><div  className="card-container"><ArticleCard article={item}/></div></Link>
     })}
     </>
+   }else{
+    return <p>loading...</p>
+   }
 }

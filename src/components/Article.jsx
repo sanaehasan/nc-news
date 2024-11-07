@@ -13,6 +13,7 @@ export default function Article(){
    const [addCommentText,setAddCommentText]=useState("hidden");
    const [commentText,setCommentText]=useState("");
    const [error, setError] = useState(false);
+   const [loading,setLoading] =useState(true);
 
  
    const context = useContext(UserContext);
@@ -20,7 +21,9 @@ export default function Article(){
 
 
     useEffect(()=>{
+        setLoading(true);
         getArticleById(id).then((data)=>{
+            setLoading(false)
             setError(false);
             setArticle(data.article)
             setVotes(data.article.votes);
@@ -107,6 +110,7 @@ export default function Article(){
                
         }
         if(!error){
+            if(!loading){
     return <>
         
              <article>
@@ -145,6 +149,9 @@ export default function Article(){
             </div>
         
             </>
+            }else{
+                return <p>loading...</p>
+            }
         }else{
             return <div>article not found</div>
         }
