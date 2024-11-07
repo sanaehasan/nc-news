@@ -7,6 +7,7 @@ import Articles from './components/Articles';
 import Article from './components/Article';
 import Login from './components/Login';
 import UserContext from './userContext';
+import NotFound from './components/NotFound';
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
       <Route path="/articles/:topic"  element={<Articles/>} />
       <Route path="/article/:id" element={<Article/>}/>
       <Route path ="/login" element={<Login/>}/>
+      <Route path="*" element={<NotFound/>}/>
+
     </Routes>
     
     </UserContext.Provider>

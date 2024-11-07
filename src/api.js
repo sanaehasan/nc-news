@@ -30,7 +30,7 @@ const getTopics = () => {
     })
     .catch((error) => {
       // handle error
-      return error;
+      return Promise.reject({ msg: "error loading topics" });
     });
 };
 const getArticleById = (id) => {
@@ -41,7 +41,8 @@ const getArticleById = (id) => {
     })
     .catch((error) => {
       // handle error
-      return error;
+
+      return Promise.reject({ msg: "article not found" });
     });
 };
 const getArticleCommentsById = (id) => {
@@ -52,7 +53,7 @@ const getArticleCommentsById = (id) => {
     })
     .catch((error) => {
       // handle error
-      return error;
+      return Promise.reject({ msg: "comments not found" });
     });
 };
 const UpdateArticleVotes = (article_id, vote) => {
@@ -63,7 +64,7 @@ const UpdateArticleVotes = (article_id, vote) => {
     })
     .catch((error) => {
       // handle error
-      return error;
+      return Promise.reject({ msg: "Unable to update votes try again later " });
     });
 };
 const getUsers = () => {
@@ -74,7 +75,7 @@ const getUsers = () => {
     })
     .catch((error) => {
       // handle error
-      return error;
+      return Promise.reject({ msg: "Not able to load users ty again later" });
     });
 };
 
@@ -89,7 +90,7 @@ const addComment = (commentText, username, article_id) => {
     })
     .catch((error) => {
       // handle error
-      return error;
+      return Promise.reject({ msg: "Error adding comment try again later" });
     });
 };
 const deleteComment = (comment_id) => {
@@ -100,7 +101,7 @@ const deleteComment = (comment_id) => {
     })
     .catch((error) => {
       // handle error
-      return error;
+      return Promise.reject({ msg: "error deleting comment" });
     });
 };
 export {
