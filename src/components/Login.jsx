@@ -11,6 +11,10 @@ export default function Login(){
     useEffect(()=>{
         getUsers().then((data)=>{
            setUsers(data.users);
+           setUser(data.users[0].username);
+           
+        }).catch((err)=>{
+            alert(err.msg);
         })
     },[]);
     const handleSelectUser =(event)=>{

@@ -8,6 +8,8 @@ export default function Nav(){
     useEffect(()=>{
         getTopics().then((data)=>{
                 setTopics(data.topics);
+        }).catch((err)=>{
+          alert(err.msg)
         })
     },[])
    

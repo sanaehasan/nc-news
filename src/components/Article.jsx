@@ -8,9 +8,11 @@ export default function Article(){
    const {id} = useParams();
    const [article, setArticle]=useState({});
    const [comments,setComments]=useState([]);
+   const [commentsCount,setCommentsCount]=useState(0);
    const [votes,setVotes]= useState(0);
    const [addCommentText,setAddCommentText]=useState("hidden");
-   const[commentText,setCommentText]=useState("");
+   const [commentText,setCommentText]=useState("");
+   const [error, setError] = useState(false);
 
  
    const context = useContext(UserContext);
@@ -19,8 +21,12 @@ export default function Article(){
 
     useEffect(()=>{
         getArticleById(id).then((data)=>{
+            setError(false);
             setArticle(data.article)
             setVotes(data.article.votes);
+            setCommentsCount(data.article.comments_count);
+        }).catch((err)=>{
+            setError(true);
         });
         getArticleCommentsById(id).then((data)=>{
             setComments(data.comments)
@@ -46,11 +52,17 @@ export default function Article(){
                  const currentVotes = votes;
                  return currentVotes-1;
             });
+        }).catch((err)=>{
+            alert(err.msg);
         });
     }
 
     const handleAddComment = ()=>{
+         if (user){
         setAddCommentText("visible")
+         }else{
+            alert("You need to log in to be able to post a comment")
+        }
     }
 
     const handleCommentChange= (event)=>{
@@ -59,22 +71,23 @@ export default function Article(){
 
     const handlePostComment= (event)=>{
         event.preventDefault();
-        if (user){
+       
+            
             addComment(commentText,user,article.article_id).then((data)=>{
                 setComments((comments)=>{
-                    console.log(data.comment);
                     const newcomments = [data.comment,...comments]
                     return newcomments;
                 })
+                 setCommentsCount((commentsCount)=>{
+                    return Number(commentsCount)+1;
+                 });
                 setCommentText("");
                 setAddCommentText("hidden"); 
+            }).catch((err)=>{
+                alert(err.msg)
             });
           
-        }else{
-            alert("You need to log in to be able to post a comment")
-            setCommentText("");
-            setAddCommentText("hidden");
-        }
+       
 
        
        
@@ -82,15 +95,21 @@ export default function Article(){
      const handleCommentDelete = (event)=>{
                 deleteComment(event.target.value).then(()=>{
                 getArticleCommentsById(id).then((data)=>{
-                setComments(data.comments)
+                setComments(data.comments);
                  });
+                  setCommentsCount((commentsCount)=>{
+                    return Number(commentsCount)-1;
+                 });
+                }).catch((err)=>{
+                    alert(err.msg);
                 });
                  
                
         }
-
+        if(!error){
     return <>
-            <article>
+        
+             <article>
             <h2>{article.topic}</h2>
             <h3>{article.title}</h3>
             <h5>author : {article.author}</h5>
@@ -106,7 +125,7 @@ export default function Article(){
             <span className="like-text"></span> 
             <img className="like-image"src="https://img.icons8.com/?size=48&id=87726&format=png"/>
             </button> 
-             <span>{article.comments_count} comments</span>
+             <span>{commentsCount} comments</span>
             </p>
             </article>
             <button onClick={handleAddComment}>Add comment...</button>
@@ -124,5 +143,9 @@ export default function Article(){
                             </div> 
                 })}
             </div>
+        
             </>
+        }else{
+            return <div>article not found</div>
+        }
 }

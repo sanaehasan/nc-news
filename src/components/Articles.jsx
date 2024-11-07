@@ -13,7 +13,6 @@ export default function Articles(){
    
     useEffect(()=>{
         if(topic){
-           
             setSingleTopic(topic);
         }else{
             setSingleTopic("");
@@ -24,8 +23,9 @@ export default function Articles(){
         
         getArticles(sortBy,order,singleTopic)
         .then((data)=>{
-
             setArticles(data.articles);
+        }).catch((err)=>{
+            alert("It has an erro loading the articles please try later");
         });
     },[singleTopic])
 
@@ -42,7 +42,9 @@ export default function Articles(){
     getArticles(sortBy,order,singleTopic)
     .then((data)=>{
         setArticles(data.articles);
-    });
+    }).catch((err)=>{
+            alert("It has an error loading the articles please try later");
+        });
    }
   
 
