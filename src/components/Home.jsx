@@ -25,8 +25,8 @@ export default function Home(){
             <h5>author : {article.author}</h5>
             <img src={article.article_img_url} className="article-img"/>
             <p>{article.body}</p>
-            <p>Ceated at : {article.created_at}</p>
-            <p>
+            <p className="created-at-p">Ceated at : {article.created_at}</p>
+            <p className="created-at-p">
             <span>{article.votes} likes</span> <span>{article.comments_count} comments</span>
             </p>
             </article>
