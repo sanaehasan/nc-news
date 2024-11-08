@@ -1,8 +1,10 @@
-# React + Vite
+#NC -NEWS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This portfolio project was created as part of a Digital Skills Bootcamp in Software Engineering provided by [Northcoders](https://northcoders.com/)
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- NC News is a mini news app that dislpay articles and enable the user the vote and post comments.
+- This a link to the deployed varsion : https://sanae-nc-news.netlify.app
+- This is a link to the backend api of this app : https://nc-backend-news.onrender.com/api
+- Minimum node version to run this app localy is : v22.9.0
+- You can clone this app from github using the command :git clone https://github.com/sanaehasan/nc-news
+- run $ npm i to install dependencies .
