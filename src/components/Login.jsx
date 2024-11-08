@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { getUsers } from "../api";
 import UserContext from "../userContext";
+import { Button } from "react-bootstrap";
 
 export default function Login(){
     const context= useContext(UserContext);
@@ -27,7 +28,7 @@ export default function Login(){
          
     }
   
-    return <div>
+    return <div className="login-container">
         <form>
             <label htmlFor="selectUser">Select Username:</label>
             <select name="selectUser" id="selectUser"onChange={handleSelectUser}>
@@ -35,7 +36,7 @@ export default function Login(){
                    return  <option key={item.username} value={item.username} >{item.username}</option>
                 })}
             </select>
-            <button type="submit"onClick={handleSubmitUser} >submit</button>
+            <Button variant="secondary" type="submit"onClick={handleSubmitUser} >submit</Button>
         </form>
         <p className={loginMsg}>You are logged in as: {user}</p>
     </div>

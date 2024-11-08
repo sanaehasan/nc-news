@@ -1,28 +1,45 @@
-
-.body{
-  background-color: rgb(249, 226, 246);
-  font-family: Arial, Helvetica, sans-serif;
+:root{
+  display: flex;
+  background-color:#A8DADC;
+  color: black;
 }
-
+body{
+  background-color: #F1FAEE;
+ font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+ max-width: 800px;
+ margin: 0 auto;
+ 
+  
+}
+h1{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .card {
   padding: 2em;
 }
 
-nav{
-  width :100%;
-  height: 50px;
-  background-color: rgb(240, 244, 244);
-  margin: 0px;
-  
+.navbar{
+  margin-top: 20px;
+  background-color: #457B9D;
+  margin-bottom: 20px;
+  padding-left: 20px; 
 }
-nav > a {
+a{
+  color: black;
+}
+nav > a ,.dropbtn{
   margin-right: 10px;
+  color: #f9f9f9;
+ 
 }
 .card-container {
   display: flex;
- 
-  width: 100%;
+  margin: 10px;
   border: 1px solid black;
+  border-radius: 5px;
+  align-self: center;
 }
 
 .card-img{
@@ -89,8 +106,12 @@ nav > a {
 
 .commentdiv{
   border: 1px solid gray;
-  margin: 5px 0 0 5px;
-  padding: 10px;;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 10px;
+  width: 90%;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 .like-image{
   height: 17px;
@@ -109,9 +130,7 @@ nav > a {
  
 
 }
-.nav-login{
-  margin-left: 10px;
-}
+
 .hidden{
   visibility: hidden;
   display: none;
@@ -119,4 +138,57 @@ nav > a {
 .visible{
   visibility: visible;
   display: block;
+}
+h3,h2,h4,
+h5{
+  padding: 10px;
+  text-align: center;
+}
+
+article>img{
+  margin-left:5%;
+  height: 50%;
+  width: 90%;
+  border-radius: 2%;
+}
+.filter-form{
+  margin-bottom: 20px;
+}
+#sortbySelect,#order{
+  margin-left: 10px;
+  margin-right: 10px;
+ 
+}
+.btn-secondary{
+  background-color: #457B9D;
+  padding: 2px;
+  width: 50px;
+}
+.article-body{
+  margin: 5%;
+  text-align: justify;
+}
+
+.like-buttons,.add-comment,.created-at-p,.add-comment-text{
+margin-left: 5%;
+margin-top: 10px;
+}
+.add-comment{
+  margin-bottom: 10px;
+}
+.login-container{
+  width: 80rem;
+  height: 50rem;
+  margin: 5%;
+}
+.text-area-comment{
+  width: 60%;
+}
+.post-comment-btn{
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+#selectUser{
+  margin: 10px;
+  padding: 5px;
 }

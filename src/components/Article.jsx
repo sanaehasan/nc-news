@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { addComment, deleteComment, getArticleById, getArticleCommentsById, UpdateArticleVotes } from "../api";
 import CommentCard from "./CommentCard";
 import UserContext from "../userContext";
+import { Button } from "react-bootstrap";
 
 export default function Article(){
    const {id} = useParams();
@@ -118,9 +119,9 @@ export default function Article(){
             <h3>{article.title}</h3>
             <h5>author : {article.author}</h5>
             <img src={article.article_img_url} className="article-img"/>
-            <p>{article.body}</p>
-            <p>Ceated at : {article.created_at}</p>
-            <p>
+            <p className="article-body">{article.body}</p>
+            <p className="created-at-p">Ceated at : {article.created_at}</p>
+            <div className="like-buttons">
             <button className="like-button" onClick={handleLike}>
             <span className="like-text">{votes}</span> 
             <img className="like-image"src="https://img.icons8.com/?size=48&id=85638&format=png"/>
@@ -130,13 +131,13 @@ export default function Article(){
             <img className="like-image"src="https://img.icons8.com/?size=48&id=87726&format=png"/>
             </button> 
              <span>{commentsCount} comments</span>
-            </p>
+            </div>
             </article>
-            <button onClick={handleAddComment}>Add comment...</button>
-            <div className={addCommentText}>
+            <button onClick={handleAddComment} className="add-comment">Add comment...</button>
+            <div className={`${addCommentText} add-comment-text`}>
                 <form>
-                    <textarea onChange={handleCommentChange}placeholder="write your comment here please" value={commentText}/>
-                    <button onClick={handlePostComment}>post</button>
+                    <textarea className="text-area-comment" onChange={handleCommentChange}placeholder="write your comment here please" value={commentText}/>
+                    <Button variant="secondary" className="post-comment-btn"onClick={handlePostComment}>post</Button>
                 </form>
             </div>
             <div>

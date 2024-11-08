@@ -2,6 +2,7 @@ import {getArticles} from "../api.js";
 import { useEffect,useState} from "react";
 import ArticleCard from "./ArticleCard.jsx";
 import { Link, useParams } from "react-router-dom";
+import { Button } from "react-bootstrap";
 export default function Articles(){
 
     const [articles,setArticles]= useState([]);
@@ -52,7 +53,7 @@ export default function Articles(){
   
    if(!loading){
     return <>
-    <form>
+    <form className="filter-form">
         <label htmlFor="sortbySelect">Filter By</label>
         <select name="sortbySelect" id="sortbySelect"value={sortBy} onChange={handleSelect}>
             <option value="created_at">date</option>
@@ -66,7 +67,7 @@ export default function Articles(){
             <option value="DESC">desc</option>
        
         </select>
-        <button onClick={handleClick}>filter</button>
+        <Button  variant="secondary"onClick={handleClick}>filter</Button>
     </form>
     {articles.map((item)=>{
         return <Link key={item.article_id} to={`/article/${item.article_id}`}><div  className="card-container"><ArticleCard article={item}/></div></Link>
