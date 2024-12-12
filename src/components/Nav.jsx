@@ -15,7 +15,7 @@ export default function Nav(){
     },[])
    
 return (
-   <Navbar>
+   <Navbar >
     <Link to="/">Home</Link>
     <div className="dropdown"> 
     <Link  className="dropbtn" to='/articles' >Articles</Link>
