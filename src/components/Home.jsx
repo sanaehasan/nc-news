@@ -17,7 +17,8 @@ export default function Home(){
         })
     },[])
     if(!loading){
-    return (<div>  
+    return (<div className="flex flex-wrap">  
+    <div className="w-full">
         <Link key={article.article_id} to={`/article/${article.article_id}`}>
             <article>
             <h3>featured article: {article.title}</h3>
@@ -31,11 +32,13 @@ export default function Home(){
             </p>
             </article>
             </Link>
+ </div>
 
             {articles.map((item)=>{
-        return <Link key={item.article_id} to={`/article/${item.article_id}`}><div  className="card-container"><ArticleCard article={item}/></div></Link>
+        return  <div className="w-1/2"><Link key={item.article_id} to={`/article/${item.article_id}`}><div  className="card-container"><ArticleCard article={item}/></div></Link> </div>
     })}
             </div>)
+               
             }else{
     return <p>loading...</p>
 }
