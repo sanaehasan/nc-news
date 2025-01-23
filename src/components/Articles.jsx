@@ -52,7 +52,8 @@ export default function Articles(){
    }
   
    if(!loading){
-    return <>
+    return  <div className="flex flex-wrap">
+    <div className="w-full">
     <form className="filter-form">
         <label htmlFor="sortbySelect">Filter By</label>
         <select name="sortbySelect" id="sortbySelect"value={sortBy} onChange={handleSelect}>
@@ -69,10 +70,12 @@ export default function Articles(){
         </select>
         <Button  variant="secondary"onClick={handleClick}>filter</Button>
     </form>
+    </div>
     {articles.map((item)=>{
-        return <Link key={item.article_id} to={`/article/${item.article_id}`}><div  className="card-container"><ArticleCard article={item}/></div></Link>
+       
+        return<div className="lg:w-1/3 sm:w-full"> <Link key={item.article_id} to={`/article/${item.article_id}`}><ArticleCard article={item}/></Link></div>
     })}
-    </>
+    </div>
    }else{
     return <p>loading...</p>
    }

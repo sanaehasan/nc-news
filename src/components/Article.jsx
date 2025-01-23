@@ -113,14 +113,24 @@ export default function Article(){
         if(!error){
             if(!loading){
     return <>
-        
-             <article>
-            <h2>{article.topic}</h2>
-            <h3>{article.title}</h3>
-            <h5>author : {article.author}</h5>
-            <img src={article.article_img_url} className="article-img"/>
+        <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert mt-4">
+          <header class="mb-4 lg:mb-6 not-format">
+              <address class="flex items-center mb-6 not-italic">
+                  <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
+                           <div>
+                          <a href="#" rel="author" class="text-xl font-bold text-gray-900 dark:text-white">{article.author}</a>
+                          <p class="text-base text-gray-500 dark:text-gray-400">{article.topic}</p>
+                          <p class="text-base text-gray-500 dark:text-gray-400"><time>{article.created_at.split("T")[0]}</time></p>
+                      </div>
+                  </div>
+              </address>
+              <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">{article.title}</h1>
+          </header>
+             <figure><img className="rounded-md my-8" src={article.article_img_url} alt=""/>
+         
+          </figure> 
             <p className="article-body">{article.body}</p>
-            <p className="created-at-p">Ceated at : {article.created_at}</p>
+      
             <div className="like-buttons">
             <button className="like-button" onClick={handleLike}>
             <span className="like-text">{votes}</span> 
@@ -132,8 +142,7 @@ export default function Article(){
             </button> 
              <span>{commentsCount} comments</span>
             </div>
-            </article>
-            <button onClick={handleAddComment} className="add-comment">Add comment...</button>
+             <button onClick={handleAddComment} className="add-comment">Add comment...</button>
             <div className={`${addCommentText} add-comment-text`}>
                 <form>
                     <textarea className="text-area-comment" onChange={handleCommentChange}placeholder="write your comment here please" value={commentText}/>
@@ -148,6 +157,8 @@ export default function Article(){
                             </div> 
                 })}
             </div>
+            </article>
+           
         
             </>
             }else{
