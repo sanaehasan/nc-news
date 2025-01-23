@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import { addComment, deleteComment, getArticleById, getArticleCommentsById, UpdateArticleVotes } from "../api";
 import CommentCard from "./CommentCard";
 import UserContext from "../userContext";
-import { Button } from "react-bootstrap";
+
 
 export default function Article(){
    const {id} = useParams();
@@ -12,6 +12,7 @@ export default function Article(){
    const [commentsCount,setCommentsCount]=useState(0);
    const [votes,setVotes]= useState(0);
    const [addCommentText,setAddCommentText]=useState("hidden");
+   const [addCommentButton,setAddCommentButton] =useState("visible")
    const [commentText,setCommentText]=useState("");
    const [error, setError] = useState(false);
    const [loading,setLoading] =useState(true);
@@ -64,6 +65,7 @@ export default function Article(){
     const handleAddComment = ()=>{
          if (user){
         setAddCommentText("visible")
+        setAddCommentButton("hidden");
          }else{
             alert("You need to log in to be able to post a comment")
         }
@@ -87,6 +89,7 @@ export default function Article(){
                  });
                 setCommentText("");
                 setAddCommentText("hidden"); 
+                setAddCommentButton("visible")
             }).catch((err)=>{
                 alert(err.msg)
             });
@@ -131,29 +134,50 @@ export default function Article(){
           </figure> 
             <p className="article-body">{article.body}</p>
       
-            <div className="like-buttons">
-            <button className="like-button" onClick={handleLike}>
-            <span className="like-text">{votes}</span> 
-            <img className="like-image"src="https://img.icons8.com/?size=48&id=85638&format=png"/>
-            </button> 
-            <button className="like-button" onClick={handleDisLike}>
-            <span className="like-text"></span> 
-            <img className="like-image"src="https://img.icons8.com/?size=48&id=87726&format=png"/>
-            </button> 
-             <span>{commentsCount} comments</span>
+            <div className="mt-4">
+                <div className="inline-flex border border-gray-200 rounded-full p-0.5 dark:border-neutral-700">
+                   <button type="button" onClick={handleLike} class="inline-flex shrink-0 justify-center items-center size-8 rounded-full text-gray-500 hover:bg-blue-100 hover:text-blue-800 focus:outline-none focus:bg-blue-100 focus:text-blue-800 dark:text-neutral-500 dark:hover:bg-blue-900 dark:hover:text-blue-200 dark:focus:bg-blue-900 dark:focus:text-blue-200">
+                     <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     <path d="M7 10v12"></path>
+                     <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"></path>
+                     </svg>
+                    </button>
+
+                    <span className="like-text">{votes}</span> 
+
+                  <button type="button" onClick={handleDisLike} className="inline-flex shrink-0 justify-center items-center size-8 rounded-full text-gray-500 hover:bg-blue-100 hover:text-blue-800 focus:outline-none focus:bg-blue-100 focus:text-blue-800 dark:text-neutral-500 dark:hover:bg-blue-900 dark:hover:text-blue-200 dark:focus:bg-blue-900 dark:focus:text-blue-200">
+                     <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     <path d="M17 14V2"></path>
+                     <path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z"></path>
+                     </svg>
+                 </button>
+                </div>
+                
+             <span className="ml-4">{commentsCount} comments</span>
             </div>
-             <button onClick={handleAddComment} className="add-comment">Add comment...</button>
+         
+            <button onClick={handleAddComment} className={`bg-gray bg-opacity-25 py-2.5 px-4  text-sm my-4 rounded-md hover:bg-yellow hover:bg-opacity-20 ${addCommentButton}`}>Add comment...</button>
+
             <div className={`${addCommentText} add-comment-text`}>
-                <form>
-                    <textarea className="text-area-comment" onChange={handleCommentChange}placeholder="write your comment here please" value={commentText}/>
-                    <Button variant="secondary" className="post-comment-btn"onClick={handlePostComment}>post</Button>
-                </form>
+            <form class="my-6">
+                 <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                    <label for="comment" class="sr-only">Your comment</label>
+                    <textarea id="comment" rows="6" onChange={handleCommentChange} value={commentText}
+                               class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+                               placeholder="Write a comment..." required></textarea>
             </div>
+            <button type="submit" onClick={handlePostComment}
+            class="inline-flex items-center py-2.5 px-4 text-sm text-center text-gray-light bg-blue rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-green hover:text-gray-dark">
+            Post comment
+             </button>
+            </form>    
+            </div>
+
             <div>
                 {comments.map((comment)=>{
                     return <div key={comment.comment_id} className="commentdiv">
                              <CommentCard comment={comment}/>
-                             {(user===comment.author)?<button value={comment.comment_id} onClick={handleCommentDelete}>delete</button>:null}
+                             {(user===comment.author)?<button value={comment.comment_id} onClick={handleCommentDelete} className=" py-2 px-4 bg-pink rounded-md text-sm mb-4 ml-3">delete</button>:null}
                             </div> 
                 })}
             </div>

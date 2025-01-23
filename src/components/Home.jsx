@@ -41,7 +41,7 @@ export default function Home(){
                 <span>{article.votes} likes</span> <span>{article.comments_count} comments</span>
                 </p>
                 <p className="m-8">
-                  <Link key={article.article_id} to={`/article/${article.article_id}`} className="bg-pink p-2 text-gray-light rounded-lg">
+                  <Link key={article.article_id} to={`/article/${article.article_id}`} className="bg-pink  py-2.5 px-4 text-sm text-gray-light rounded-lg">
          Read more ...</Link>
          </p>
             </div>
