@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { addComment, deleteComment, getArticleById, getArticleCommentsById, UpdateArticleVotes } from "../api";
 import CommentCard from "./CommentCard";
 import UserContext from "../userContext";
+import Loading from "./Loading";
 
 
 export default function Article(){
@@ -186,7 +187,7 @@ export default function Article(){
         
             </>
             }else{
-                return <p>loading...</p>
+                return <Loading/>
             }
         }else{
             return <div>article not found</div>

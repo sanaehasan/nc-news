@@ -3,6 +3,7 @@ import { useEffect,useState} from "react";
 import ArticleCard from "./ArticleCard.jsx";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import Loading from "./Loading.jsx";
 export default function Articles(){
 
     const [articles,setArticles]= useState([]);
@@ -53,22 +54,22 @@ export default function Articles(){
   
    if(!loading){
     return  <div className="flex flex-wrap">
-    <div className="w-full">
-    <form className="filter-form">
-        <label htmlFor="sortbySelect">Filter By</label>
-        <select name="sortbySelect" id="sortbySelect"value={sortBy} onChange={handleSelect}>
+    <div className="w-full my-4">
+    <form className="filter-form flex flex-wrap">
+        <label htmlFor="sortbySelect" className="py-2 px-4" >Filter By </label>
+        <select  className="py-2 px-4  block border-gray-light border-2 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" name="sortbySelect" id="sortbySelect"value={sortBy} onChange={handleSelect}>
             <option value="created_at">date</option>
             <option value="title">title</option>
             <option value="author">author</option>
         </select>
    
-        <label htmlFor="order">order</label>
-        <select name="order" id="order"value={order} onChange={handleOrder}>
+        <label htmlFor="order" className="py-2 px-4">order</label>
+        <select className="py-2 px-4 block  border-gray-light border-2  rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" name="order" id="order"value={order} onChange={handleOrder}>
             <option value="ASC">asc</option>
             <option value="DESC">desc</option>
        
         </select>
-        <Button  variant="secondary"onClick={handleClick}>filter</Button>
+        <button className="bg-blue py-2 px-4 rounded-md ml-4 text-gray-light" variant="secondary"onClick={handleClick}>filter</button>
     </form>
     </div>
     {articles.map((item)=>{
@@ -77,6 +78,7 @@ export default function Articles(){
     })}
     </div>
    }else{
-    return <p>loading...</p>
+    return <Loading/>
+
    }
 }

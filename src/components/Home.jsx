@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { getArticles } from "../api"
 import { Link } from "react-router-dom";
 import ArticleCard from "./ArticleCard";
+import Loading from "./Loading";
 
 export default function Home(){
     const [article,setArticle] = useState({});
@@ -57,6 +58,6 @@ export default function Home(){
             </div>)
                
             }else{
-    return <p>loading...</p>
+    return <Loading/>
 }
 }
