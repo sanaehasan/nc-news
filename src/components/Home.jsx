@@ -23,7 +23,7 @@ export default function Home(){
     
        
             <div className="w-full h-auto text-center">
-                <h2 className="m-8 font-bold text-2xl text-blue">Featured articles</h2>
+                <h2 className="m-8 pt-16 font-bold text-2xl text-blue">Featured articles</h2>
                 
             </div>
             <div className="flex flex-wrap w-full border-2 bg-yellow border-yellow border-opacity-30 bg-opacity-10 rounded-md justify-center items-center mb-8 hover:bg-opacity-30">  
