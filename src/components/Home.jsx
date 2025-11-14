@@ -26,7 +26,7 @@ export default function Home(){
                 <h2 className="m-8 pt-16 font-bold text-2xl text-blue">Featured articles</h2>
                 
             </div>
-            <div className="flex flex-wrap w-full border-2 bg-yellow border-yellow border-opacity-30 bg-opacity-10 rounded-md justify-center items-center mb-8 hover:bg-opacity-30">  
+            <div className="flex flex-wrap w-full border-2 bg-yellow border-yellow border-opacity-30 bg-opacity-10 rounded-md justify-center items-center mb-8 hover:bg-opacity-30  dark:bg-gray-800 dark:border-gray-700">  
             <div className="lg:w-1/2 sm:w-full">
                 <Link key={article.article_id} to={`/article/${article.article_id}`}>
                 <img src={article.article_img_url} className="lg:rounded-l-md lg:rounded-r-none  sm:rounded-b-none sm:rounded-t-md"/> 
@@ -34,15 +34,15 @@ export default function Home(){
             </div>
 
             <div className="lg:w-1/2 sm:w-full text-center sm:mt-8">
-            <h3 className="text-2xl font-bold ">{article.topic}: {article.title}</h3>
-                <h5 className="text-xl ">{article.author}</h5>
+            <h3 className="text-2xl font-bold dark:text-white ">{article.topic}: {article.title}</h3>
+                <h5 className="text-xl  dark:text-white ">{article.author}</h5>
                 <p>{article.body}</p>
-                <p className="text-xl ">{(article.created_at).split("T")[0]}</p>
-                <p className="text-xl">
+                <p className="text-xl  dark:text-white">{(article.created_at).split("T")[0]}</p>
+                <p className="text-xl  dark:text-white">
                 <span>{article.votes} likes</span> <span>{article.comments_count} comments</span>
                 </p>
                 <p className="m-8">
-                  <Link key={article.article_id} to={`/article/${article.article_id}`} className="bg-pink  py-2.5 px-4 text-sm text-gray-light rounded-lg">
+                  <Link key={article.article_id} to={`/article/${article.article_id}`} className=" py-2.5 px-4 text-sm  rounded-lg text-white bg-red-800 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-800 dark:hover:bg-red-900 dark:focus:ring-red-800">
          Read more ...</Link>
          </p>
             </div>
@@ -53,7 +53,7 @@ export default function Home(){
 
 
             {articles.map((item)=>{
-        return  <div className="lg:w-1/3 sm:w-full"><Link key={item.article_id} to={`/article/${item.article_id}`}><div  className="card-container"><ArticleCard article={item}/></div></Link> </div>
+        return  <div  key={item.article_id}  className="lg:w-1/3 sm:w-full"><Link key={item.article_id} to={`/article/${item.article_id}`}><div  className="card-container"><ArticleCard article={item}/></div></Link> </div>
     })}
             </div>)
                

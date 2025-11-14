@@ -74,7 +74,7 @@ export default function Articles(){
     </div>
     {articles.map((item)=>{
        
-        return<div className="lg:w-1/3 sm:w-full"> <Link key={item.article_id} to={`/article/${item.article_id}`}><ArticleCard article={item}/></Link></div>
+        return<div className="lg:w-1/3 sm:w-full" key={item.article_id}> <Link key={item.article_id} to={`/article/${item.article_id}`}><ArticleCard article={item}/></Link></div>
     })}
     </div>
    }else{
