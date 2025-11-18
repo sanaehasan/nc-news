@@ -8,6 +8,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/16/solid";
 export default function Nav(){
     const [topics,setTopics]= useState([]);
     const [theme,setTheme]= useState("light");
+    const [mobileToggleOpen, setMobileToggleOpen]= useState(false);
     
     useEffect(()=>{
         getTopics().then((data)=>{
@@ -29,17 +30,17 @@ export default function Nav(){
         setTheme("light");
     }
    }
+   function handleMobileToggle(){
+    setMobileToggleOpen(()=>!mobileToggleOpen);
+   }
 return (
   <Disclosure as="nav" className="fixed w-full bg-red-800">
    <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-      <DisclosureButton data-collapse-toggle="navbar-solid-bg" type="button" className="group inline-flex w-full items-start p-2  h-10 justify-start text-sm text-gray-200 rounded-lg md:hidden hover:bg-red-950 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-solid-bg" aria-expanded="false">
+      <DisclosureButton data-collapse-toggle="navbar-solid-bg" type="button" className="group inline-flex w-full items-start p-2  h-10 justify-start text-sm text-gray-200 rounded-lg md:hidden hover:bg-red-950 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-solid-bg" aria-expanded="false" onClick={handleMobileToggle}>
         <span className="sr-only">Open main menu</span>
-        <Bars3Icon aria-hidden="true" className="block size-6 group-data-open:hidden" />
-        <XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
-        
+        {mobileToggleOpen? <XMarkIcon  className="block size-6" />: <Bars3Icon  className="block size-6" />} 
     </DisclosureButton>
-   <div className="hidden w-full md:block md:w-auto" id="navbar-dropdown">
-      
+   <div className="hidden w-full md:block md:w-auto" id="navbar-dropdown">  
       <ul className="flex w-full flex-col font-medium  rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
        <li><h1 className="text-3xl  font-medium px-10  text-gray-100 dark:text-white border-r-2 border-gray-100">NC News</h1></li>
        <li>
@@ -72,7 +73,7 @@ return (
     </div>
     <DisclosurePanel className="sm:hidden">
         <div className="space-y-1  pt-1 pb-3 w-full">
-            <ul className="flex w-full flex-col font-medium  rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
+            <ul className="flex w-full flex-col font-medium  rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent md:dark:bg-transparent">
             <li>
         <Link className="text-gray-100 hover:bg-yellow  hover:text-gray-dark bloc py-2 px-3 md:p-0 rounded hover:bg-red-950 md:hover:bg-transparent md:border-0 md:hover:text-gray-300 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" to="/">Home</Link>
             </li>

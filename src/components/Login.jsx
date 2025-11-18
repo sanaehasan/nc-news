@@ -31,7 +31,7 @@ export default function Login(){
     return <div className="w-full h-full flex justify-center">
         <form className="h-auto mt-28 justify-items-center">
             <label htmlFor="selectUser" className="py-2 ">Select Username Please</label>
-            <select name="selectUser" id="selectUser"onChange={handleSelectUser}  className="py-2 px-4 w-96 mt-4 block border-gray-light border-2 rounded-lg text-sm ">
+            <select name="selectUser" id="selectUser"onChange={handleSelectUser}  className="py-2 px-4 w-96 mt-4 block border-gray-light border-2 rounded-lg text-sm dark:bg-gray-800 dark:text-gray-100">
                 {users.map((item)=>{
                    return  <option key={item.username} value={item.username} >{item.username}</option>
                 })}
